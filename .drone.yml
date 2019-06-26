@@ -1,0 +1,33 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: build
+    image: golang:1.12-alpine
+    commands:
+      - GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -o wxpusher main.go
+    when:
+      event:
+        - tag
+
+  - name: build-image
+    image: plugins/docker
+    settings:
+      username: beanjs
+      # password:
+      #   from_secret: docker_pwd
+      repo: beanjs/drone-wxpusher
+      auto_tag: true
+    when:
+      event:
+        - tag
+
+  - name: sendmsg
+    image: beanjs/drone-wxpusher
+    settings:
+      title: test_title
+      msg: test_message
+      ids: orPQ805vGGGtfCS-OcFHGsCWoDz8KbWVvAKqvC
+    when:
+      event:
+        - tag
