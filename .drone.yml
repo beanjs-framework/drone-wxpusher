@@ -31,8 +31,8 @@ steps:
       subtitle_text: test_subtitle
       subtitle_color: '#888888'
       remark: 
-        from_secret: 
-          user_id  
+        - from_secret: 
+            user_id
         - test_remark
       ids:
         from_secret: user_id
