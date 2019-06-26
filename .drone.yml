@@ -5,6 +5,7 @@ steps:
   - name: build
     image: golang:1.12-alpine
     commands:
+      - apk update && apk add --no-cache git
       - GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -o wxpusher main.go
     when:
       event:
