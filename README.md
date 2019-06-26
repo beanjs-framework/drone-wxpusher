@@ -1,4 +1,4 @@
-# Drone ServerChan(Server酱)
+# Drone wxpusher
 
 [![Build Status](https://cloud.drone.io/api/badges/beanjs-framework/drone-wxpusher/status.svg)](https://cloud.drone.io/beanjs-framework/drone-wxpusher)
 
