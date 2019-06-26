@@ -35,6 +35,8 @@ func main() {
 	e_subtitle := os.Getenv("PLUGIN_SUBTITLE_TEXT")
 	e_subcolor := os.Getenv("PLUGIN_SUBTITLE_COLOR")
 
+	cstZone := time.FixedZone("CST", 8*3600)
+
 	if e_remark == "" || e_uids == "" {
 		log.Fatalln("key or text is required")
 	}
@@ -64,7 +66,7 @@ func main() {
 		Color: "#000000",
 	}
 	body.Data.Keyword1 = &JValue{
-		Value: time.Now().Format("2006-01-02 15:04:05"),
+		Value: time.Now().In(cstZone).Format("2006-01-02 15:04:05"),
 		Color: "#C0C0C0",
 	}
 	body.Data.Keyword2 = &JValue{
