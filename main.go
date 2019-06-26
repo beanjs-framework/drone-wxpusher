@@ -6,8 +6,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-
-	_ "github.com/joho/godotenv/autoload"
 )
 
 var (

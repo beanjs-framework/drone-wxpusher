@@ -7,6 +7,7 @@ steps:
     commands:
       - GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -o wxpusher main.go
 
+
   - name: build-image
     image: plugins/docker
     settings:
