@@ -21,27 +21,10 @@ steps:
   - name: send-wechat
     image: beanjs/drone-wxpusher
     settings:
-      msg: {消息内容}
-      ids: {用户ID}
-      title: {消息标题}
-      url: {跳转链接}
-```
-
-密文 key 配置
-
-```yml
----
-kind: pipeline
-name: default
-
-steps:
-  - name: send-wechat
-    image: beanjs/drone-wxpusher
-    settings:
-      msg: {消息内容}
-      ids:
-        from_secret: {your ids}
-      title: {消息标题}
-      url: {跳转链接}
-
+      ids: uid1,uid2,uid3 (必须)
+      title: {消息标题} (可选:)
+      subtitle_text: {工单类型-文字} (可选:简单提醒)
+      subtitle_color: {工单类型-颜色} (可选:#C0C0C0)
+      remark: {消息内容} (必须)
+      url: {跳转链接} (可选:)
 ```
