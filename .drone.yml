@@ -6,7 +6,9 @@ steps:
     image: golang:1.12-alpine
     commands:
       - GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -o wxpusher main.go
-
+    when:
+      event:
+        - tag
 
   - name: build-image
     image: plugins/docker
@@ -15,7 +17,9 @@ steps:
       password:
         from_secret: docker_pwd
       repo: beanjs/drone-wxpusher
-      auto_tag: true
+      tags:
+        - latest
+        - ${DRONE_TAG}
     when:
       event:
         - tag
