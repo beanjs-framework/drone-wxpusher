@@ -2,27 +2,27 @@ kind: pipeline
 name: default
 
 steps:
-  # - name: build
-  #   image: golang:1.12-alpine
-  #   commands:
-  #     - GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -o wxpusher main.go
-  #   when:
-  #     event:
-  #       - tag
+  - name: build
+    image: golang:1.12-alpine
+    commands:
+      - GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -o wxpusher main.go
+    when:
+      event:
+        - tag
 
-  # - name: build-image
-  #   image: plugins/docker
-  #   settings:
-  #     username: beanjs
-  #     password:
-  #       from_secret: docker_pwd
-  #     repo: beanjs/drone-wxpusher
-  #     tags:
-  #       - latest
-  #       - ${DRONE_TAG}
-  #   when:
-  #     event:
-  #       - tag
+  - name: build-image
+    image: plugins/docker
+    settings:
+      username: beanjs
+      password:
+        from_secret: docker_pwd
+      repo: beanjs/drone-wxpusher
+      tags:
+        - latest
+        - ${DRONE_TAG}
+    when:
+      event:
+        - tag
 
   - name: sendmsg
     image: beanjs/drone-wxpusher
@@ -30,12 +30,9 @@ steps:
       title: test_title
       subtitle_text: test_subtitle
       subtitle_color: '#888888'
-      remark: 
-        - from_secret: 
-            from_secret: user_id
-        - test_remark
-      ids:
+      remark: test_remark
+      ids: 
         from_secret: user_id
-    # when:
-    #   event:
-    #     - tag
+    when:
+      event:
+        - tag
