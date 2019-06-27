@@ -27,12 +27,12 @@ steps:
   - name: sendmsg
     image: beanjs/drone-wxpusher
     settings:
-      title: test_title
+      title: |
+        test_title
+        ${DRONE_COMMIT_MESSAGE}
+        ${DRONE_GIT_HTTP_URL}
       subtitle_text: test_subtitle
       subtitle_color: '#888888'
       remark: test_remark
       ids: 
         from_secret: user_id
-    when:
-      event:
-        - tag
