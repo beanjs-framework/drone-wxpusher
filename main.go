@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	// _ "github.com/joho/godotenv/autoload"
 )
 
 type JValue struct {
@@ -55,7 +56,7 @@ func main() {
 
 	body := &JBody{}
 	body.UserIds = strings.Split(e_uids, ",")
-	body.TemplateId = "4YscLc2uaCnsdrEdUJ9HGAGAkdBcEQM9bUBy0gs69Hw"
+	body.TemplateId = "6gxAPiVQ5fruViymf5azMurvNJ8wZZqwcnprI2RKpGY"
 	body.Url = os.Getenv("PLUGIN_URL")
 	body.Data.First = &JValue{
 		Value: os.Getenv("PLUGIN_TITLE"),
@@ -65,11 +66,11 @@ func main() {
 		Value: e_remark,
 		Color: "#000000",
 	}
-	body.Data.Keyword1 = &JValue{
+	body.Data.Keyword2 = &JValue{
 		Value: time.Now().In(cstZone).Format("2006-01-02 15:04:05"),
 		Color: "#C0C0C0",
 	}
-	body.Data.Keyword2 = &JValue{
+	body.Data.Keyword1 = &JValue{
 		Value: e_subtitle,
 		Color: e_subcolor,
 	}
