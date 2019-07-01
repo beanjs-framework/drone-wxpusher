@@ -36,3 +36,6 @@ steps:
       remark: test_remark
       ids: 
         from_secret: user_id
+    when:
+      event:
+        - tag
