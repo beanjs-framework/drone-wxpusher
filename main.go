@@ -1,34 +1,53 @@
 package main
 
 import (
-	"log"
+	"bytes"
+	"encoding/json"
+	"fmt"
 	"net/http"
-	"net/url"
 	"os"
-	//  _ "github.com/joho/godotenv/autoload"
+	"strconv"
+	"strings"
+	// _ "github.com/joho/godotenv/autoload"
 )
-
 
 func main() {
 
-	e_remark := os.Getenv("PLUGIN_REMARK")
-	e_uids := os.Getenv("PLUGIN_IDS")
-	e_title:=os.Getenv("PLUGIN_TITLE")
+	p := Plugin{}
 
-	if e_remark == "" || e_uids == "" {
-		log.Fatalln("key or text is required")
-	}
+	// var err error
 
-	reqMsg := &url.Values{
-		"title": []string{e_title},
-		"msg": []string{e_remark},
-		"userIds": []string{e_uids},
-	}
+	p.AppToken = os.Getenv("PLUGIN_APP_TOKEN")
+	p.Content = os.Getenv("PLUGIN_CONTENT")
+	p.ContentType, _ = strconv.Atoi(os.Getenv("PLUGIN_CONTENT_TYPE"))
+	p.Uids = strings.Split(os.Getenv("PLUGIN_UIDS"), ",")
+	// p.TopicIds = strings.Split(os.Getenv("PLUGIN_TOPIC_IDS"), ",")
+	p.URL = os.Getenv("PLUGIN_URL")
 
-	reqURL := "http://wxmsg.dingliqc.com/send?"
+	p.Exec()
+}
 
-	_, err := http.Get(reqURL+reqMsg.Encode())
+type Plugin struct {
+	AppToken    string   `json:"appToken"`
+	Content     string   `json:"content"`
+	ContentType int      `json:"contentType"`
+	TopicIds    []int    `json:"topicIds,omitempty"`
+	Uids        []string `json:"uids"`
+	URL         string   `json:"url,omitempty"`
+}
+
+func (p *Plugin) Exec() {
+	jsonStr, _ := json.Marshal(p)
+
+	fmt.Println(string(jsonStr))
+
+	postUrl := "http://wxpusher.zjiecode.com/api/send/message"
+
+	_, err := http.Post(postUrl, "application/json", bytes.NewBuffer(jsonStr))
+
 	if err != nil {
-		log.Fatalln("post error: ", err)
+		os.Exit(-1)
 	}
+
+	// fmt.Println(res)
 }

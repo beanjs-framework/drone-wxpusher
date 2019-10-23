@@ -6,7 +6,7 @@ drone-wxpusher微信消息通知插件
 
 ## 简介
 
-基于 [wxpusher](http://wxpusher.dingliqc.com/) 封装的微信消息通知插件
+基于 [wxpusher](http://wxpusher.zjiecode.com/docs/#/) 封装的微信消息通知插件
 
 ## 例子
 
@@ -21,10 +21,9 @@ steps:
   - name: send-wechat
     image: beanjs/drone-wxpusher
     settings:
-      ids: uid1,uid2,uid3 (必须)
-      title: {消息标题} (可选:)
-      subtitle_text: {工单类型-文字} (可选:简单提醒)
-      subtitle_color: {工单类型-颜色} (可选:#C0C0C0)
-      remark: {消息内容} (必须)
+      uids: uid1,uid2,uid3 
+      content: {消息内容}
+      content_type: {消息类型：1，2，3}
+      app_token: {应用ID}
       url: {跳转链接} (可选:)
 ```
